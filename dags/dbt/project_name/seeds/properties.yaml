@@ -1,0 +1,6 @@
+version: 2
+
+seeds:
+  - name: some_table_with_bytes_field
+    config:
+      column_types: {bytes_field_name: BYTES}

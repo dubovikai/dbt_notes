@@ -1,0 +1,28 @@
+# ----------------------
+# PRIVATE files
+# ----------------------
+.env
+.DS_Store
+credentials.json
+develop
+# ----------------------
+# DEV-dependencies
+# ----------------------
+**/__pycache__
+node_modules
+# ----------------------
+# DBT
+# ----------------------
+dags/dbt/project_name/target/
+dags/dbt/project_name/dbt_packages/
+dags/dbt/project_name/dbt_modules/
+dags/dbt/project_name/logs/
+dags/dbt/project_name/.user.yml
+dags/dbt/project_name/analyses/
+# ----------------------
+# Google Cloud Composer
+# ----------------------
+venv
+venv_composer
+composer
+logs

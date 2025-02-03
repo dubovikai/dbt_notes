@@ -1,0 +1,8 @@
+# dbt extensions provided by vendor
+dags/dbt/project_name/dbt_packages/
+
+# history of compiled and executed queries
+dags/dbt/project_name/target/
+
+# draft models
+__*

@@ -1,0 +1,41 @@
+steps:
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:497.0.0-stable'
+  id: Tests
+  script: bash .cloudbuild/scripts/run_tests.sh
+
+- name: 'gcr.io/cloud-builders/docker:24.0.9'
+  id: Build
+  wait_for: ['Tests']
+  script: |
+    #!/usr/bin/env bash
+    set -e
+
+    docker build -t project_name/dbt -f .cloudbuild/Dockerfile .
+    docker container run --env-file dags/.env.composer project_name/dbt bash -c "dbt parse"
+    mkdir $PWD/dags/dbt/project_name/target
+    docker cp "$(docker ps -l -q):/opt/project/target/manifest.json" "$PWD/dags/dbt/project_name/target/manifest.json"
+    docker container prune -f
+
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:497.0.0-stable'
+  id: Deploy
+  wait_for: ['Build']
+  script: |
+    #!/usr/bin/env bash
+    set -e    
+
+    export AIRFLOW_BUCKET=...
+    export CONFIG_PATH=dags/config.py
+
+    source .cloudbuild/scripts/copy_files.sh
+
+timeout: 1200s
+options:
+  logging: CLOUD_LOGGING_ONLY
+  env:
+    - BRANCH_NAME=$BRANCH_NAME
+    - PROJECT_ID=$PROJECT_ID
+    - COMMIT_SHA=$COMMIT_SHA
+availableSecrets:
+  secretManager:
+   - versionName: ...
+     env: 'GITHUB_SSH_KEY'

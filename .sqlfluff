@@ -1,0 +1,30 @@
+[sqlfluff]
+templater = jinja
+dialect = bigquery
+sql_file_exts = .sql
+exclude_rules = CV02, CV03, AM05, ST06, ST07, LT01, LT02
+large_file_skip_byte_limit = 0
+max_line_length = 200
+ignore = templating
+
+[sqlfluff.indentation]
+tab_space_size = 4
+indented_joins = False
+indented_using_on = False
+template_blocks_indent = False
+
+[sqlfluff:rules:capitalisation.identifiers]
+extended_capitalisation_policy = lower
+ignore_words = _SESSION
+
+[sqlfluff:rules:capitalisation.keywords]
+capitalisation_policy = upper
+
+[sqlfluff:rules:capitalisation.functions]
+extended_capitalisation_policy = upper
+
+[sqlfluff:rules:capitalisation.literals]
+capitalisation_policy = upper
+
+[sqlfluff:rules:capitalisation.types]
+extended_capitalisation_policy = upper

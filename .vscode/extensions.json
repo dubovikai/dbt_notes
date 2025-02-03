@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+        "samuelcolvin.jinjahtml",
+        "ms-python.flake8",
+        "innoverio.vscode-dbt-power-user",
+        "dorzey.vscode-sqlfluff"
+    ]
+  }

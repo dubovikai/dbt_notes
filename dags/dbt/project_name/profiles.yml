@@ -1,0 +1,9 @@
+dbt:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: oauth
+      project: "{{env_var('ANALYTICS_PROJECT')}}"
+      dataset: dbt
+      threads: 3 # Must be a value of 1 or greater

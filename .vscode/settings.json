@@ -1,0 +1,12 @@
+{
+    "dbt.enableNewLineagePanel": true,
+    "flake8.args": [
+        "--config=.flake8"
+    ],
+    "files.associations": {
+        "*.sql": "jinja-sql"
+    },
+    "sqlfluff.executablePath": "${workspaceFolder}/venv/bin/sqlfluff",
+    "sqlfluff.linter.run": "onSave",
+    "dbt.queryLimit": 500,
+}

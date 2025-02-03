@@ -1,0 +1,25 @@
+version: 2
+
+snapshots:
+  - name: model_name_ctl_snapshot
+    data_tests:
+      - check_base_counters:
+          default_check:
+            ctl_values_list:
+              - all_count
+              - client_id
+              - event_type
+              - event_id
+          checks:
+            - label: total
+              limit_range:
+                member_id: [2000, null]
+                event_type: [9, null]
+                event_id: [3000, null]
+              all_diff_limit: 0.1
+
+            - label: month
+              all_diff_limit: 0.15
+              filters:
+                - "previous_state.event_month >= DATE_SUB(DATE_TRUNC(CURRENT_DATE(), MONTH), INTERVAL 3 YEAR)"
+                - "previous_state.event_month < DATE_SUB(DATE_TRUNC(CURRENT_DATE(), MONTH), INTERVAL 1 MONTH)"
